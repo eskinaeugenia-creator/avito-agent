@@ -470,7 +470,7 @@ input:checked + .toggle-slider:before { transform: translateX(17px); }
 </div>
 
 <script>
-const AVITO = 'https://api.avito.ru'; // заменено прокси
+const AVITO = 'https://api.avito.ru'; // proxy below
 const AI_URL = 'https://api.anthropic.com/v1/messages';
 
 const state = {
@@ -857,7 +857,7 @@ async function loadListings() {
   const wrap = document.getElementById('listings-wrap');
   wrap.innerHTML = '<div style="display:flex;align-items:center;gap:10px;padding:20px;color:var(--muted);font-size:13px;"><div class="spinner"></div>Загружаем...</div>';
   try {
-    const data = await avitoGet(`/core/v1/accounts/${uid}/items?per_page=50&status=active`);
+    const data = await avitoGet(`/core/v1/items?user_id=${uid}&per_page=50&status=active`);
     state.listings = data.resources || [];
     if (!state.listings.length) {
       wrap.innerHTML = '<div class="empty-state"><div class="es-icon">📋</div><h3>Нет активных объявлений</h3><p>Создай первое объявление</p></div>';

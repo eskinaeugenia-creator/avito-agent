@@ -889,19 +889,10 @@ async function loadListings() {
 
 // ─── BOOST ────────────────────────────────
 async function boostListing(id, title) {
-  if (!state.connected) { notify('⚠️ API не подключён'); return; }
-  const uid = localStorage.getItem('av_uid');
-  try {
-    const item = state.listings.find(l => String(l.id) === String(id));
-    const desc = (item?.description || '') + (Math.random() > .5 ? ' ' : '');
-    await avitoPut(`/core/v1/accounts/${uid}/items/${id}`, { description: desc.trim() });
-    state.boostsCount++;
-    updateCounters();
-    notify(`🚀 Поднято: ${title}`);
-    addLog('green', 'Поднятие', title || id);
-  } catch(e) {
-    notify('❌ ' + e.message);
-  }
+  // Открываем объявление на Авито для ручного поднятия
+  window.open(`https://www.avito.ru/${id}`, '_blank');
+  notify(`🚀 Открыто: ${title} — подними вручную на Авито`);
+  addLog('blue', 'Открыто на Авито', title || id);
 }
 
 // ─── SCHEDULE ─────────────────────────────

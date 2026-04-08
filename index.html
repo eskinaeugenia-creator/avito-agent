@@ -486,7 +486,6 @@ const state = {
 // ─── INIT ─────────────────────────────────
 window.onload = () => {
   loadKeys();
-  // Расписание НЕ запускается автоматически — включай вручную в разделе "Расписание"
 };
 
 function loadKeys() {
@@ -619,7 +618,7 @@ function setConnected(ok) {
 async function callAI(system, user, maxTokens = 800) {
   const body = { model: 'claude-sonnet-4-20250514', max_tokens: maxTokens, messages: [{ role: 'user', content: user }] };
   if (system) body.system = system;
-  const r = await fetch(AI_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const r = await fetch('/api/proxy', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-target-api': 'anthropic' }, body: JSON.stringify(body) });
   const d = await r.json();
   return d.content?.[0]?.text || 'Ошибка AI';
 }

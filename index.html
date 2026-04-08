@@ -542,14 +542,14 @@ async function getToken() {
 
 async function avitoGet(path) {
   const t = await getToken();
-  const r = await fetch(`${AVITO}?path=${encodeURIComponent(path)}`, { headers: { Authorization: `Bearer ${t}` } });
+  const r = await fetch(`${AVITO}?path=${path}`, { headers: { Authorization: `Bearer ${t}` } });
   if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`);
   return r.json();
 }
 
 async function avitoPost(path, body) {
   const t = await getToken();
-  const r = await fetch(`${AVITO}?path=${encodeURIComponent(path)}`, {
+  const r = await fetch(`${AVITO}?path=${path}`, {
     method: 'POST', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
@@ -559,7 +559,7 @@ async function avitoPost(path, body) {
 
 async function avitoPut(path, body) {
   const t = await getToken();
-  const r = await fetch(`${AVITO}?path=${encodeURIComponent(path)}`, {
+  const r = await fetch(`${AVITO}?path=${path}`, {
     method: 'PUT', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });

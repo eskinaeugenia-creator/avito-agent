@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Ads formatVersion="3" target="Avito.ru">
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-MSK</Id>
+    <Id>EBANDA-SUBNADO-PLUS-MSK1</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Инвентарь для водного спорта</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -43,19 +43,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Москва</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-SPB</Id>
+    <Id>EBANDA-SUBNADO-PLUS-SPB1</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Инвентарь для водного спорта</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -91,19 +91,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Санкт-Петербург</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-SCH</Id>
+    <Id>EBANDA-SUBNADO-PLUS-SCH1</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Инвентарь для водного спорта</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -139,19 +139,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Сочи</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-KRD</Id>
+    <Id>EBANDA-SUBNADO-PLUS-KRD1</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Инвентарь для водного спорта</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -187,19 +187,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Краснодар</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-EKB</Id>
+    <Id>EBANDA-SUBNADO-PLUS-EKB1</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Инвентарь для водного спорта</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -235,19 +235,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Екатеринбург</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-NSK</Id>
+    <Id>EBANDA-SUBNADO-PLUS-NSK1</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Инвентарь для водного спорта</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -283,19 +283,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Новосибирск</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-KZN</Id>
+    <Id>EBANDA-SUBNADO-PLUS-KZN2</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Аксессуары для плавания</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -331,19 +331,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Казань</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-NNV</Id>
+    <Id>EBANDA-SUBNADO-PLUS-NNV2</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Аксессуары для плавания</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -379,19 +379,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Нижний Новгород</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-RST</Id>
+    <Id>EBANDA-SUBNADO-PLUS-RST2</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Аксессуары для плавания</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -427,19 +427,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Ростов-на-Дону</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-KLG</Id>
+    <Id>EBANDA-SUBNADO-PLUS-KLG2</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Аксессуары для плавания</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -475,19 +475,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Калининград</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-VLD</Id>
+    <Id>EBANDA-SUBNADO-PLUS-VLD2</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Аксессуары для плавания</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -523,19 +523,19 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Владивосток</Address>
     <Availability>в наличии</Availability>
   </Ad>
   <Ad>
-    <Id>EBANDA-SUBNADO-PLUS-SAM</Id>
+    <Id>EBANDA-SUBNADO-PLUS-SAM2</Id>
     <DateBegin>2026-04-09</DateBegin>
     <AllowEmail>False</AllowEmail>
     <ManagerName>EBanda</ManagerName>
     <ContactPhone>+79773337049</ContactPhone>
     <Category>Хобби и отдых</Category>
-    <GoodsType>Дайвинг и водный спорт</GoodsType>
+    <GoodsType>Аксессуары для плавания</GoodsType>
     <AdType>Товар от производителя</AdType>
     <Title>Подводный скутер Waydoo Subnado Plus 2025</Title>
     <Description>🌊 Подводный скутер Waydoo Subnado Plus — НОВИНКА 2025!
@@ -571,7 +571,7 @@
     <Price>79900</Price>
     <Condition>Новое</Condition>
     <Images>
-      <Image url="https://waydoo.com/cdn/shop/files/Subnado-Plus-Black-01_1000x.jpg"/>
+      <Image url="https://raw.githubusercontent.com/eskinaeugenia-creator/avito-agent/main/photos/subnado_plus_main.jpg"/>
     </Images>
     <Address>Самара</Address>
     <Availability>в наличии</Availability>

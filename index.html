@@ -470,7 +470,7 @@ input:checked + .toggle-slider:before { transform: translateX(17px); }
 </div>
 
 <script>
-const AVITO = 'https://api.avito.ru';
+const AVITO = '/api/proxy';
 const AI_URL = 'https://api.anthropic.com/v1/messages';
 
 const state = {
@@ -528,7 +528,7 @@ async function getToken() {
   const cid = localStorage.getItem('av_cid');
   const cs = localStorage.getItem('av_cs');
   if (!cid || !cs) throw new Error('Ключи не заданы');
-  const r = await fetch(`${AVITO}/token`, {
+  const r = await fetch(`${AVITO}?path=/token`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `grant_type=client_credentials&client_id=${encodeURIComponent(cid)}&client_secret=${encodeURIComponent(cs)}`
@@ -542,14 +542,14 @@ async function getToken() {
 
 async function avitoGet(path) {
   const t = await getToken();
-  const r = await fetch(`${AVITO}${path}`, { headers: { Authorization: `Bearer ${t}` } });
+  const r = await fetch(`${AVITO}?path=${encodeURIComponent(path)}`, { headers: { Authorization: `Bearer ${t}` } });
   if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`);
   return r.json();
 }
 
 async function avitoPost(path, body) {
   const t = await getToken();
-  const r = await fetch(`${AVITO}${path}`, {
+  const r = await fetch(`${AVITO}?path=${encodeURIComponent(path)}`, {
     method: 'POST', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
@@ -559,7 +559,7 @@ async function avitoPost(path, body) {
 
 async function avitoPut(path, body) {
   const t = await getToken();
-  const r = await fetch(`${AVITO}${path}`, {
+  const r = await fetch(`${AVITO}?path=${encodeURIComponent(path)}`, {
     method: 'PUT', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });

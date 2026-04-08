@@ -486,9 +486,7 @@ const state = {
 // ─── INIT ─────────────────────────────────
 window.onload = () => {
   loadKeys();
-  // Schedule defaults ON
-  schedToggle({ checked: true }, '12:00');
-  schedToggle({ checked: true }, '19:30');
+  // Расписание НЕ запускается автоматически — включай вручную в разделе "Расписание"
 };
 
 function loadKeys() {
@@ -889,9 +887,10 @@ async function loadListings() {
 
 // ─── BOOST ────────────────────────────────
 async function boostListing(id, title) {
-  // Открываем объявление на Авито для ручного поднятия
   window.open(`https://www.avito.ru/${id}`, '_blank');
-  notify(`🚀 Открыто: ${title} — подними вручную на Авито`);
+  state.boostsCount++;
+  updateCounters();
+  notify(`🚀 Открыто на Авито: ${title}`);
   addLog('blue', 'Открыто на Авито', title || id);
 }
 

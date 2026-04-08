@@ -470,7 +470,7 @@ input:checked + .toggle-slider:before { transform: translateX(17px); }
 </div>
 
 <script>
-const AVITO = '/api/proxy';
+const AVITO = 'https://api.avito.ru'; // заменено прокси
 const AI_URL = 'https://api.anthropic.com/v1/messages';
 
 const state = {
@@ -528,9 +528,9 @@ async function getToken() {
   const cid = localStorage.getItem('av_cid');
   const cs = localStorage.getItem('av_cs');
   if (!cid || !cs) throw new Error('Ключи не заданы');
-  const r = await fetch(`${AVITO}?path=/token`, {
+  const r = await fetch('/api/proxy', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'x-avito-path': '/token' },
     body: `grant_type=client_credentials&client_id=${encodeURIComponent(cid)}&client_secret=${encodeURIComponent(cs)}`
   });
   if (!r.ok) throw new Error(`Auth ${r.status}`);
@@ -542,15 +542,15 @@ async function getToken() {
 
 async function avitoGet(path) {
   const t = await getToken();
-  const r = await fetch(`${AVITO}?path=${path}`, { headers: { Authorization: `Bearer ${t}` } });
+  const r = await fetch('/api/proxy', { headers: { Authorization: `Bearer ${t}`, 'x-avito-path': path } });
   if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`);
   return r.json();
 }
 
 async function avitoPost(path, body) {
   const t = await getToken();
-  const r = await fetch(`${AVITO}?path=${path}`, {
-    method: 'POST', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' },
+  const r = await fetch('/api/proxy', {
+    method: 'POST', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json', 'x-avito-path': path },
     body: JSON.stringify(body)
   });
   if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`);
@@ -559,8 +559,8 @@ async function avitoPost(path, body) {
 
 async function avitoPut(path, body) {
   const t = await getToken();
-  const r = await fetch(`${AVITO}?path=${path}`, {
-    method: 'PUT', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' },
+  const r = await fetch('/api/proxy', {
+    method: 'PUT', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json', 'x-avito-path': path },
     body: JSON.stringify(body)
   });
   if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`);

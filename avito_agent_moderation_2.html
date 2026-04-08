@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Авито Агент PRO — с модерацией</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Geologica:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f2ee;
+  --surface: #ffffff;
+  --surface2: #edeae4;
+  --border: #ddd9d0;
+  --accent: #e8461a;
+  --accent2: #1a56e8;
+  --accent3: #18a854;
+  --text: #1a1814;
+  --muted: #8a8278;
+  --warn: #e8a01a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Geologica', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.layout { display: flex; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px; flex-shrink: 0;
+  background: var(--text); color: #fff;
+  display: flex; flex-direction: column;
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 100;
+}
+.sidebar-logo { padding: 24px 18px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.sidebar-logo h1 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; line-height: 1.3; }
+.sidebar-logo .sub { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+.nav { padding: 10px 0; flex: 1; overflow-y: auto; }
+.nav-section { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: rgba(255,255,255,0.22); text-transform: uppercase; padding: 14px 18px 4px; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 9px 18px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.5); cursor: pointer; transition: all .15s; border-left: 3px solid transparent; }
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-item.active { color: #fff; border-left-color: var(--accent); background: rgba(232,70,26,0.1); }
+.nav-item .ni { font-size: 15px; width: 18px; text-align: center; }
+.nav-badge { margin-left: auto; background: var(--accent); color: #fff; border-radius: 10px; padding: 1px 7px; font-size: 10px; font-weight: 700; min-width: 18px; text-align: center; }
+.api-status { margin: 0 10px 14px; padding: 9px 12px; border-radius: 9px; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 7px; }
+.api-status.connected { background: rgba(24,168,84,0.18); color: #5de89a; }
+.api-status.disconnected { background: rgba(232,70,26,0.18); color: #f4906a; }
+.api-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.api-status.connected .api-dot { background: #5de89a; animation: pulse 2s infinite; }
+.api-status.disconnected .api-dot { background: #f4906a; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+
+/* MAIN */
+.main { margin-left: 220px; flex: 1; min-height: 100vh; }
+.topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.topbar h2 { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; }
+.topbar .page-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.content { padding: 24px 28px; max-width: 960px; }
+
+/* PANELS */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* CARDS */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 14px; }
+.card-title { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 7px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+.card-title .ci { font-size: 16px; }
+
+/* FORMS */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group.full { grid-column: 1/-1; }
+label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+input, select, textarea { background: var(--surface2); border: 1.5px solid var(--border); border-radius: 9px; color: var(--text); font-family: 'Geologica', sans-serif; font-size: 13px; padding: 10px 12px; outline: none; transition: border-color .15s; width: 100%; }
+input:focus, select:focus, textarea:focus { border-color: var(--accent2); background: #fff; }
+textarea { resize: vertical; min-height: 80px; }
+select { cursor: pointer; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 18px; border-radius: 9px; font-family: 'Geologica', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all .15s; white-space: nowrap; }
+.btn-red { background: var(--accent); color: #fff; }
+.btn-red:hover { background: #cc3a12; }
+.btn-blue { background: var(--accent2); color: #fff; }
+.btn-blue:hover { background: #1444c4; }
+.btn-green { background: var(--accent3); color: #fff; }
+.btn-green:hover { background: #148a44; }
+.btn-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+.btn-ghost:hover { border-color: var(--text); }
+.btn-warn { background: rgba(232,160,26,0.15); border: 1.5px solid rgba(232,160,26,0.4); color: var(--warn); }
+.btn-full { width: 100%; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn-sm { padding: 6px 12px; font-size: 11px; }
+
+/* BADGES */
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 20px; font-size: 10px; font-weight: 700; }
+.badge-green { background: rgba(24,168,84,0.1); color: var(--accent3); }
+.badge-red { background: rgba(232,70,26,0.1); color: var(--accent); }
+.badge-blue { background: rgba(26,86,232,0.1); color: var(--accent2); }
+.badge-warn { background: rgba(232,160,26,0.1); color: var(--warn); }
+.badge-gray { background: var(--surface2); color: var(--muted); }
+
+/* ★ MODERATION CARD ★ */
+.mod-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  transition: border-color .2s;
+}
+.mod-card.pending { border-color: var(--warn); }
+.mod-card.approved { border-color: var(--accent3); opacity: .6; }
+.mod-card.rejected { border-color: var(--border); opacity: .4; }
+
+.mod-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+.mod-header .mod-type { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.mod-header .mod-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; flex: 1; }
+.mod-header .mod-time { font-size: 11px; color: var(--muted); }
+
+.mod-body { padding: 16px 18px; }
+.mod-preview {
+  background: var(--surface2);
+  border-radius: 10px; padding: 14px;
+  font-size: 13px; line-height: 1.7;
+  white-space: pre-wrap; margin-bottom: 14px;
+  border: 1px solid var(--border);
+  min-height: 60px;
+}
+.mod-preview-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.mod-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.mod-edit { width: 100%; margin-top: 10px; display: none; }
+.mod-edit.visible { display: block; }
+
+/* STATS */
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 18px; }
+.stat-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; padding: 16px; }
+.stat-card .s-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.stat-card .s-val { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; }
+.stat-card .s-val.red { color: var(--accent); }
+.stat-card .s-val.blue { color: var(--accent2); }
+.stat-card .s-val.green { color: var(--accent3); }
+.stat-card .s-val.warn { color: var(--warn); }
+.stat-card .s-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* SPINNER */
+.spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .6s linear infinite; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* LOG */
+.log-item { display: flex; align-items: flex-start; gap: 9px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+.log-item:last-child { border-bottom: none; }
+.log-time { font-size: 10px; color: var(--muted); width: 42px; flex-shrink: 0; margin-top: 2px; }
+.log-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+.log-dot.green { background: var(--accent3); }
+.log-dot.red { background: var(--accent); }
+.log-dot.blue { background: var(--accent2); }
+.log-dot.warn { background: var(--warn); }
+
+/* SCHEDULE TOGGLE */
+.schedule-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.schedule-row:last-child { border-bottom: none; }
+.sched-time { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; width: 70px; }
+.sched-desc { flex: 1; font-size: 13px; }
+.sched-desc .sdd { color: var(--muted); font-size: 11px; margin-top: 1px; }
+.toggle-switch { position: relative; width: 38px; height: 21px; flex-shrink: 0; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 21px; cursor: pointer; transition: .2s; }
+.toggle-slider:before { content: ''; position: absolute; width: 15px; height: 15px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .2s; }
+input:checked + .toggle-slider { background: var(--accent3); }
+input:checked + .toggle-slider:before { transform: translateX(17px); }
+
+/* NOTIFICATION */
+.notif { position: fixed; bottom: 22px; right: 22px; background: var(--text); color: #fff; border-radius: 11px; padding: 11px 16px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 7px; transform: translateY(70px); opacity: 0; transition: all .25s; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.notif.show { transform: translateY(0); opacity: 1; }
+
+/* INFO BOX */
+.info-box { background: rgba(26,86,232,0.06); border: 1.5px solid rgba(26,86,232,0.18); border-radius: 11px; padding: 12px 15px; font-size: 12px; line-height: 1.6; display: flex; gap: 8px; margin-bottom: 14px; }
+.warn-box { background: rgba(232,160,26,0.08); border: 1.5px solid rgba(232,160,26,0.25); border-radius: 11px; padding: 12px 15px; font-size: 12px; line-height: 1.6; display: flex; gap: 8px; margin-bottom: 14px; }
+
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
+.empty-state .es-icon { font-size: 40px; margin-bottom: 10px; }
+.empty-state h3 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.empty-state p { font-size: 12px; }
+
+/* RESULT BOX */
+.result-box { background: var(--surface2); border: 1.5px solid var(--border); border-radius: 11px; padding: 14px; font-size: 13px; line-height: 1.7; white-space: pre-wrap; display: none; margin-top: 12px; position: relative; }
+.result-box.visible { display: block; }
+.result-box.loading { display: flex; align-items: center; gap: 9px; color: var(--muted); }
+.copy-btn { position: absolute; top: 9px; right: 9px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 3px 9px; font-size: 10px; font-weight: 600; color: var(--muted); cursor: pointer; font-family: 'Geologica', sans-serif; }
+.copy-btn:hover { color: var(--accent2); border-color: var(--accent2); }
+
+@media (max-width: 700px) {
+  .sidebar { width: 54px; }
+  .sidebar-logo h1,.sidebar-logo .sub,.nav-item span,.nav-section,.api-status span { display: none; }
+  .nav-item { justify-content: center; }
+  .main { margin-left: 54px; }
+  .content { padding: 14px; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="notif" class="notif">✅ <span id="notif-text">Готово</span></div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h1>🚀 АВИТО<br>АГЕНТ PRO</h1>
+      <div class="sub">Режим с модерацией</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-section">Главное</div>
+      <div class="nav-item active" onclick="showPanel('queue')"><span class="ni">✅</span><span>Очередь</span><span class="nav-badge" id="queue-badge" style="display:none">0</span></div>
+      <div class="nav-item" onclick="showPanel('create')"><span class="ni">➕</span><span>Создать</span></div>
+      <div class="nav-item" onclick="showPanel('listings')"><span class="ni">📋</span><span>Объявления</span></div>
+      <div class="nav-section">Авто</div>
+      <div class="nav-item" onclick="showPanel('schedule')"><span class="ni">⏰</span><span>Расписание</span></div>
+      <div class="nav-item" onclick="showPanel('messages')"><span class="ni">💬</span><span>Сообщения</span><span class="nav-badge" id="msg-badge" style="display:none">0</span></div>
+      <div class="nav-section">Прочее</div>
+      <div class="nav-item" onclick="showPanel('log')"><span class="ni">📜</span><span>Лог</span></div>
+      <div class="nav-item" onclick="showPanel('settings')"><span class="ni">⚙️</span><span>API</span></div>
+    </nav>
+    <div id="api-status-badge" class="api-status disconnected">
+      <div class="api-dot"></div><span>Не подключено</span>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h2 id="page-title">Очередь на проверку</h2>
+        <div class="page-sub" id="page-sub">Все действия требуют твоего одобрения</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span id="topbar-status" class="badge badge-warn">⚠️ API не подключён</span>
+        <button class="btn btn-ghost btn-sm" onclick="showPanel('settings')">⚙️ API</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ★ ОЧЕРЕДЬ МОДЕРАЦИИ ★ -->
+      <div id="panel-queue" class="panel active">
+        <div class="info-box">
+          <span>💡</span>
+          <div>Здесь появляются все действия агента — <strong>объявления, ответы покупателям</strong>. Ты проверяешь, редактируешь при необходимости и нажимаешь «Одобрить». Только после этого агент публикует.</div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card"><div class="s-label">Ожидают проверки</div><div class="s-val warn" id="s-pending">0</div><div class="s-sub">нужно одобрить</div></div>
+          <div class="stat-card"><div class="s-label">Одобрено сегодня</div><div class="s-val green" id="s-approved">0</div><div class="s-sub">опубликовано</div></div>
+          <div class="stat-card"><div class="s-label">Отклонено</div><div class="s-val red" id="s-rejected">0</div><div class="s-sub">не подошло</div></div>
+          <div class="stat-card"><div class="s-label">Поднятий авто</div><div class="s-val blue" id="s-boosts">0</div><div class="s-sub">без модерации</div></div>
+        </div>
+
+        <div id="queue-list">
+          <div class="empty-state">
+            <div class="es-icon">✅</div>
+            <h3>Очередь пуста</h3>
+            <p>Создай новое объявление или жди — агент сам заполнит очередь</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- СОЗДАТЬ ОБЪЯВЛЕНИЕ -->
+      <div id="panel-create" class="panel">
+        <div class="card">
+          <div class="card-title"><span class="ci">📝</span> Данные объявления</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Категория</label>
+              <select id="pub-cat">
+                <option value="electronics">📱 Электроника</option>
+                <option value="auto">🚗 Авто</option>
+                <option value="realty">🏠 Недвижимость</option>
+                <option value="clothes">👗 Одежда</option>
+                <option value="furniture">🛋️ Мебель</option>
+                <option value="services">🔧 Услуги</option>
+                <option value="animals">🐾 Животные</option>
+                <option value="kids">🧸 Детские товары</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Название товара</label>
+              <input type="text" id="pub-name" placeholder="iPhone 14 Pro 256GB">
+            </div>
+            <div class="form-group">
+              <label>Цена (₽)</label>
+              <input type="number" id="pub-price" placeholder="75000">
+            </div>
+            <div class="form-group">
+              <label>Состояние</label>
+              <select id="pub-cond">
+                <option value="new">Новое</option>
+                <option value="excellent">Отличное</option>
+                <option value="good">Хорошее</option>
+                <option value="used">Б/у</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Тон текста</label>
+              <select id="pub-tone">
+                <option value="trust">Доверительный</option>
+                <option value="urgent">Срочная продажа</option>
+                <option value="premium">Премиум</option>
+                <option value="friendly">Дружеский</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Город</label>
+              <input type="text" id="pub-city" placeholder="Москва">
+            </div>
+            <div class="form-group full">
+              <label>Ключевые факты (через запятую)</label>
+              <input type="text" id="pub-facts" placeholder="цвет, комплектация, год, особенности...">
+            </div>
+            <div class="form-group full">
+              <label>Доп. информация для AI</label>
+              <textarea id="pub-extra" placeholder="Причина продажи, история, что входит в комплект..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ci">🤖</span> AI генерирует — ты проверяешь</div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">AI подготовит заголовок и текст объявления. Они попадут в <strong>Очередь на проверку</strong> — там ты сможешь отредактировать и только потом одобрить публикацию.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-red" onclick="generateAndQueue()">⚡ Сгенерировать и отправить на проверку</button>
+            <button class="btn btn-ghost" onclick="clearCreate()">🗑️ Очистить</button>
+          </div>
+          <div id="create-status" class="result-box"></div>
+        </div>
+      </div>
+
+      <!-- ОБЪЯВЛЕНИЯ -->
+      <div id="panel-listings" class="panel">
+        <div class="card">
+          <div class="card-title"><span class="ci">📋</span> Активные объявления на Авито
+            <button class="btn btn-ghost btn-sm" style="margin-left:auto;" onclick="loadListings()">🔄 Загрузить</button>
+          </div>
+          <div id="listings-wrap">
+            <div class="empty-state"><div class="es-icon">📋</div><h3>Нет данных</h3><p>Подключи API и нажми «Загрузить»</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- РАСПИСАНИЕ -->
+      <div id="panel-schedule" class="panel">
+        <div class="info-box"><span>⏰</span><div>Авто-поднятие объявлений <strong>не требует твоего одобрения</strong> — это безопасно. Агент просто добавляет/убирает пробел в конце описания, Авито засчитывает это как активность.</div></div>
+        <div class="card">
+          <div class="card-title"><span class="ci">📅</span> Расписание поднятий</div>
+          <div id="schedule-list">
+            <div class="schedule-row">
+              <div class="sched-time">09:00</div>
+              <div class="sched-desc"><strong>Утренний буст</strong><div class="sdd">Ежедневно — ловим ранних покупателей</div></div>
+              <span class="badge badge-warn">Среднее</span>
+              <label class="toggle-switch"><input type="checkbox" onchange="schedToggle(this,'09:00')"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="schedule-row">
+              <div class="sched-time">12:00</div>
+              <div class="sched-desc"><strong>Обеденный пик</strong><div class="sdd">Пн–Пт — максимальная активность</div></div>
+              <span class="badge badge-green">🔥 Горячее</span>
+              <label class="toggle-switch"><input type="checkbox" checked onchange="schedToggle(this,'12:00')"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="schedule-row">
+              <div class="sched-time">19:30</div>
+              <div class="sched-desc"><strong>Вечерний пик</strong><div class="sdd">Пн–Пт — после работы, топ-время</div></div>
+              <span class="badge badge-green">🔥 Горячее</span>
+              <label class="toggle-switch"><input type="checkbox" checked onchange="schedToggle(this,'19:30')"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="schedule-row">
+              <div class="sched-time">21:00</div>
+              <div class="sched-desc"><strong>Ночной Вс</strong><div class="sdd">Воскресенье — лучший день недели</div></div>
+              <span class="badge badge-blue">📈 Важное</span>
+              <label class="toggle-switch"><input type="checkbox" onchange="schedToggle(this,'21:00')"><span class="toggle-slider"></span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- СООБЩЕНИЯ -->
+      <div id="panel-messages" class="panel">
+        <div class="info-box"><span>💬</span><div>Агент читает новые сообщения от покупателей и готовит AI-ответ. Ответ <strong>появляется в очереди</strong> — ты проверяешь текст и нажимаешь «Отправить». Без твоего одобрения ничего не уходит.</div></div>
+        <div class="card">
+          <div class="card-title"><span class="ci">🔍</span> Мониторинг сообщений</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <label class="toggle-switch"><input type="checkbox" id="msg-monitor-toggle" onchange="toggleMsgMonitor(this)"><span class="toggle-slider"></span></label>
+            <span style="font-size:13px;font-weight:600;">Следить за новыми сообщениями</span>
+            <span id="msg-monitor-status" class="badge badge-gray">Выключено</span>
+          </div>
+          <div class="form-group" style="margin-bottom:12px;">
+            <label>Инфо о товаре для AI-ответов</label>
+            <textarea id="msg-product-info" placeholder="Опиши товар/услугу, условия, цены, доставку..." style="min-height:80px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Интервал проверки</label>
+            <select id="msg-interval">
+              <option value="60000">Каждую минуту</option>
+              <option value="300000" selected>Каждые 5 минут</option>
+              <option value="600000">Каждые 10 минут</option>
+            </select>
+          </div>
+          <button class="btn btn-blue" style="margin-top:12px;" onclick="simulateIncoming()">🧪 Симулировать входящее сообщение</button>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ci">📨</span> Входящие сообщения</div>
+          <div id="messages-list">
+            <div class="empty-state"><div class="es-icon">💬</div><h3>Новых сообщений нет</h3><p>Включи мониторинг — агент будет проверять чат Авито</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ЛОГ -->
+      <div id="panel-log" class="panel">
+        <div class="card">
+          <div class="card-title"><span class="ci">📜</span> Полный лог действий
+            <button class="btn btn-ghost btn-sm" style="margin-left:auto;" onclick="clearLog()">🗑️ Очистить</button>
+          </div>
+          <div id="full-log">
+            <div class="empty-state"><div class="es-icon">📜</div><h3>Лог пуст</h3><p>Действия агента будут отображаться здесь</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- НАСТРОЙКИ -->
+      <div id="panel-settings" class="panel">
+        <div class="card">
+          <div class="card-title"><span class="ci">🔑</span> Подключение к Авито API</div>
+          <div class="info-box" style="margin-bottom:14px;"><span>🔒</span><div>Ключи хранятся <strong>только в твоём браузере</strong>. Никуда не передаются и не сохраняются на серверах.</div></div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Client ID</label>
+              <input type="text" id="cfg-cid" placeholder="Вставь Client ID">
+            </div>
+            <div class="form-group">
+              <label>Client Secret</label>
+              <input type="password" id="cfg-cs" placeholder="Вставь Client Secret">
+            </div>
+            <div class="form-group">
+              <label>User ID (числовой ID профиля)</label>
+              <input type="text" id="cfg-uid" placeholder="Из URL профиля Авито">
+            </div>
+            <div class="form-group"></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+            <button class="btn btn-red" onclick="saveAndConnect()">🔌 Подключиться</button>
+            <button class="btn btn-ghost" onclick="testConn()">🧪 Проверить</button>
+            <button class="btn btn-ghost" onclick="clearKeys()">🗑️ Удалить ключи</button>
+          </div>
+          <div id="conn-result" class="result-box"></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ci">📖</span> Как получить ключи</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;line-height:1.7;">
+            <div style="display:flex;gap:10px;"><span style="font-family:Syne;font-weight:800;color:var(--accent);font-size:14px;flex-shrink:0;width:20px;">1.</span><div>Зайди на <a href="https://developers.avito.ru" target="_blank" style="color:var(--accent2)">developers.avito.ru</a> под бизнес-аккаунтом</div></div>
+            <div style="display:flex;gap:10px;"><span style="font-family:Syne;font-weight:800;color:var(--accent);font-size:14px;flex-shrink:0;width:20px;">2.</span><div>«Мои приложения» → «Создать приложение»</div></div>
+            <div style="display:flex;gap:10px;"><span style="font-family:Syne;font-weight:800;color:var(--accent);font-size:14px;flex-shrink:0;width:20px;">3.</span><div>Выбери разрешения: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px;">items:read items:write messenger:read messenger:write</code></div></div>
+            <div style="display:flex;gap:10px;"><span style="font-family:Syne;font-weight:800;color:var(--accent);font-size:14px;flex-shrink:0;width:20px;">4.</span><div>Скопируй <strong>Client ID</strong> и <strong>Client Secret</strong> → вставь выше</div></div>
+            <div style="display:flex;gap:10px;"><span style="font-family:Syne;font-weight:800;color:var(--accent);font-size:14px;flex-shrink:0;width:20px;">5.</span><div><strong>User ID</strong> — зайди на avito.ru → свой профиль → цифры в URL</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div>
+
+<script>
+const AVITO = 'https://api.avito.ru';
+const AI_URL = 'https://api.anthropic.com/v1/messages';
+
+const state = {
+  connected: false, token: null, tokenExpiry: null,
+  listings: [],
+  queue: [], // [{id, type, title, content, reply, chatId, status, time}]
+  pendingCount: 0, approvedCount: 0, rejectedCount: 0, boostsCount: 0,
+  log: [],
+  schedTimers: {},
+  msgInterval: null,
+};
+
+// ─── INIT ─────────────────────────────────
+window.onload = () => {
+  loadKeys();
+  // Schedule defaults ON
+  schedToggle({ checked: true }, '12:00');
+  schedToggle({ checked: true }, '19:30');
+};
+
+function loadKeys() {
+  const cid = localStorage.getItem('av_cid');
+  const cs = localStorage.getItem('av_cs');
+  const uid = localStorage.getItem('av_uid');
+  if (cid) document.getElementById('cfg-cid').value = cid;
+  if (cs) document.getElementById('cfg-cs').value = cs;
+  if (uid) document.getElementById('cfg-uid').value = uid;
+  if (cid && cs) setTimeout(() => saveAndConnect(true), 400);
+}
+
+// ─── NAV ──────────────────────────────────
+const titles = {
+  queue: ['Очередь на проверку', 'Все действия требуют твоего одобрения'],
+  create: ['Создать объявление', 'AI пишет — ты проверяешь перед публикацией'],
+  listings: ['Мои объявления', 'Активные объявления на Авито'],
+  schedule: ['Расписание поднятий', 'Единственное полностью автоматическое действие'],
+  messages: ['Сообщения покупателей', 'AI готовит ответ — ты одобряешь'],
+  log: ['Лог действий', 'История всех событий агента'],
+  settings: ['Настройки API', 'Подключение к Авито'],
+};
+
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => { if (n.getAttribute('onclick')?.includes(name)) n.classList.add('active'); });
+  const [t, s] = titles[name] || [name, ''];
+  document.getElementById('page-title').textContent = t;
+  document.getElementById('page-sub').textContent = s;
+}
+
+// ─── API ──────────────────────────────────
+async function getToken() {
+  if (state.token && state.tokenExpiry > Date.now()) return state.token;
+  const cid = localStorage.getItem('av_cid');
+  const cs = localStorage.getItem('av_cs');
+  if (!cid || !cs) throw new Error('Ключи не заданы');
+  const r = await fetch(`${AVITO}/token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `grant_type=client_credentials&client_id=${encodeURIComponent(cid)}&client_secret=${encodeURIComponent(cs)}`
+  });
+  if (!r.ok) throw new Error(`Auth ${r.status}`);
+  const d = await r.json();
+  state.token = d.access_token;
+  state.tokenExpiry = Date.now() + (d.expires_in - 60) * 1000;
+  return state.token;
+}
+
+async function avitoGet(path) {
+  const t = await getToken();
+  const r = await fetch(`${AVITO}${path}`, { headers: { Authorization: `Bearer ${t}` } });
+  if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`);
+  return r.json();
+}
+
+async function avitoPost(path, body) {
+  const t = await getToken();
+  const r = await fetch(`${AVITO}${path}`, {
+    method: 'POST', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`);
+  return r.json();
+}
+
+async function avitoPut(path, body) {
+  const t = await getToken();
+  const r = await fetch(`${AVITO}${path}`, {
+    method: 'PUT', headers: { Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`);
+  return r.json();
+}
+
+// ─── CONNECT ──────────────────────────────
+async function saveAndConnect(silent = false) {
+  const cid = document.getElementById('cfg-cid').value.trim();
+  const cs = document.getElementById('cfg-cs').value.trim();
+  const uid = document.getElementById('cfg-uid').value.trim();
+  if (!cid || !cs) { if (!silent) notify('⚠️ Заполни Client ID и Client Secret'); return; }
+  localStorage.setItem('av_cid', cid);
+  localStorage.setItem('av_cs', cs);
+  if (uid) localStorage.setItem('av_uid', uid);
+  if (!silent) setResLoading('conn-result', 'Подключаюсь...');
+  try {
+    await getToken();
+    setConnected(true);
+    if (!silent) showRes('conn-result', '✅ Подключено! Агент готов к работе.');
+    addLog('green', 'API подключён', 'Авторизация успешна');
+  } catch(e) {
+    setConnected(false);
+    if (!silent) showRes('conn-result', `❌ ${e.message}`);
+  }
+}
+
+async function testConn() {
+  setResLoading('conn-result', 'Тестирую...');
+  try {
+    await getToken();
+    showRes('conn-result', '✅ Соединение работает!');
+  } catch(e) { showRes('conn-result', `❌ ${e.message}`); }
+}
+
+function clearKeys() {
+  ['av_cid','av_cs','av_uid'].forEach(k => localStorage.removeItem(k));
+  ['cfg-cid','cfg-cs','cfg-uid'].forEach(id => document.getElementById(id).value = '');
+  state.token = null; setConnected(false); notify('🗑️ Ключи удалены');
+}
+
+function setConnected(ok) {
+  state.connected = ok;
+  const sb = document.getElementById('api-status-badge');
+  const tb = document.getElementById('topbar-status');
+  if (ok) {
+    sb.className = 'api-status connected';
+    sb.innerHTML = '<div class="api-dot"></div><span>Подключено</span>';
+    tb.className = 'badge badge-green'; tb.textContent = '✅ API активен';
+  } else {
+    sb.className = 'api-status disconnected';
+    sb.innerHTML = '<div class="api-dot"></div><span>Не подключено</span>';
+    tb.className = 'badge badge-warn'; tb.textContent = '⚠️ API не подключён';
+  }
+}
+
+// ─── AI ───────────────────────────────────
+async function callAI(system, user, maxTokens = 800) {
+  const body = { model: 'claude-sonnet-4-20250514', max_tokens: maxTokens, messages: [{ role: 'user', content: user }] };
+  if (system) body.system = system;
+  const r = await fetch(AI_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const d = await r.json();
+  return d.content?.[0]?.text || 'Ошибка AI';
+}
+
+// ─── QUEUE ────────────────────────────────
+function addToQueue(item) {
+  item.id = Date.now() + Math.random();
+  item.status = 'pending';
+  item.time = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
+  state.queue.unshift(item);
+  state.pendingCount++;
+  updateCounters();
+  renderQueue();
+  addLog('warn', `В очередь: ${item.type === 'listing' ? 'объявление' : 'ответ'}`, item.title);
+  // Show badge
+  const b = document.getElementById('queue-badge');
+  b.style.display = 'inline-flex'; b.textContent = state.pendingCount;
+}
+
+function renderQueue() {
+  const list = document.getElementById('queue-list');
+  const pending = state.queue.filter(q => q.status === 'pending');
+  const done = state.queue.filter(q => q.status !== 'pending');
+
+  if (!state.queue.length) {
+    list.innerHTML = `<div class="empty-state"><div class="es-icon">✅</div><h3>Очередь пуста</h3><p>Создай объявление или жди входящих сообщений</p></div>`;
+    return;
+  }
+
+  list.innerHTML = '';
+
+  if (pending.length) {
+    list.innerHTML += `<div style="font-size:11px;font-weight:700;color:var(--warn);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">⏳ Ожидают проверки (${pending.length})</div>`;
+    pending.forEach(item => list.innerHTML += renderQueueCard(item));
+  }
+
+  if (done.length) {
+    list.innerHTML += `<div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:16px 0 8px;">История</div>`;
+    done.slice(0, 5).forEach(item => list.innerHTML += renderQueueCard(item));
+  }
+}
+
+function renderQueueCard(item) {
+  const typeLabel = item.type === 'listing' ? '📤 Объявление' : '💬 Ответ покупателю';
+  const statusBadge = item.status === 'pending'
+    ? '<span class="badge badge-warn">⏳ Ожидает</span>'
+    : item.status === 'approved'
+    ? '<span class="badge badge-green">✅ Одобрено</span>'
+    : '<span class="badge badge-red">❌ Отклонено</span>';
+
+  const actions = item.status === 'pending' ? `
+    <div class="mod-actions">
+      <button class="btn btn-green btn-sm" onclick="approve('${item.id}')">✅ Одобрить и опубликовать</button>
+      <button class="btn btn-warn btn-sm" onclick="editItem('${item.id}')">✏️ Редактировать</button>
+      <button class="btn btn-ghost btn-sm" onclick="reject('${item.id}')">❌ Отклонить</button>
+    </div>
+    <div class="mod-edit" id="edit-${item.id}">
+      <textarea style="width:100%;min-height:120px;margin-top:10px;" id="editta-${item.id}">${item.content}</textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="btn btn-green btn-sm" onclick="saveEdit('${item.id}')">💾 Сохранить и одобрить</button>
+        <button class="btn btn-ghost btn-sm" onclick="cancelEdit('${item.id}')">Отмена</button>
+      </div>
+    </div>` : '';
+
+  const previewLabel = item.type === 'listing' ? 'Текст объявления' : 'Ответ покупателю';
+  const extra = item.type === 'listing' && item.titleText
+    ? `<div class="mod-preview-label">Заголовок</div><div class="mod-preview" style="margin-bottom:10px;">${item.titleText}</div>`
+    : item.type === 'reply' && item.question
+    ? `<div class="mod-preview-label">Вопрос покупателя</div><div class="mod-preview" style="margin-bottom:10px;background:rgba(26,86,232,0.05);">💬 ${item.question}</div>`
+    : '';
+
+  return `
+    <div class="mod-card ${item.status}" id="card-${item.id}">
+      <div class="mod-header">
+        <span class="mod-type">${typeLabel}</span>
+        <span class="mod-title">${item.title}</span>
+        ${statusBadge}
+        <span class="mod-time">${item.time}</span>
+      </div>
+      <div class="mod-body">
+        ${extra}
+        <div class="mod-preview-label">${previewLabel}</div>
+        <div class="mod-preview" id="preview-${item.id}">${item.content}</div>
+        ${actions}
+      </div>
+    </div>`;
+}
+
+function editItem(id) {
+  const el = document.getElementById(`edit-${id}`);
+  const ta = document.getElementById(`editta-${id}`);
+  el.classList.toggle('visible');
+  if (el.classList.contains('visible')) {
+    const item = state.queue.find(q => String(q.id) === String(id));
+    if (item) ta.value = item.content;
+  }
+}
+
+function cancelEdit(id) {
+  document.getElementById(`edit-${id}`).classList.remove('visible');
+}
+
+function saveEdit(id) {
+  const ta = document.getElementById(`editta-${id}`);
+  const item = state.queue.find(q => String(q.id) === String(id));
+  if (item) {
+    item.content = ta.value;
+    document.getElementById(`preview-${id}`).textContent = ta.value;
+  }
+  cancelEdit(id);
+  approve(id);
+}
+
+async function approve(id) {
+  const item = state.queue.find(q => String(q.id) === String(id));
+  if (!item) return;
+
+  item.status = 'approved';
+  state.pendingCount = Math.max(0, state.pendingCount - 1);
+  state.approvedCount++;
+  updateCounters();
+  renderQueue();
+
+  addLog('green', 'Одобрено', item.title);
+  notify('✅ Одобрено! Публикуется...');
+
+  // Реальная публикация / отправка
+  if (!state.connected) {
+    notify('⚠️ API не подключён — симуляция публикации');
+    addLog('warn', 'Симуляция', 'API не подключён');
+    return;
+  }
+
+  try {
+    if (item.type === 'listing') {
+      const uid = localStorage.getItem('av_uid');
+      await avitoPost(`/core/v1/accounts/${uid}/items`, {
+        title: item.titleText || item.title,
+        description: item.content,
+        price: item.price || 0,
+        category: { id: 1 }
+      });
+      notify('🎉 Объявление опубликовано на Авито!');
+      addLog('green', 'Опубликовано на Авито', item.title);
+    } else if (item.type === 'reply' && item.chatId) {
+      const uid = localStorage.getItem('av_uid');
+      await avitoPost(`/messenger/v3/accounts/${uid}/chats/${item.chatId}/messages`, {
+        message: { text: item.content }, type: 'text'
+      });
+      notify('📨 Ответ отправлен покупателю!');
+      addLog('green', 'Ответ отправлен', item.question?.substring(0,40));
+    }
+  } catch(e) {
+    notify('❌ Ошибка: ' + e.message);
+    addLog('red', 'Ошибка публикации', e.message);
+  }
+}
+
+function reject(id) {
+  const item = state.queue.find(q => String(q.id) === String(id));
+  if (!item) return;
+  item.status = 'rejected';
+  state.pendingCount = Math.max(0, state.pendingCount - 1);
+  state.rejectedCount++;
+  updateCounters();
+  renderQueue();
+  addLog('red', 'Отклонено', item.title);
+  notify('❌ Отклонено');
+}
+
+function updateCounters() {
+  document.getElementById('s-pending').textContent = state.pendingCount;
+  document.getElementById('s-approved').textContent = state.approvedCount;
+  document.getElementById('s-rejected').textContent = state.rejectedCount;
+  document.getElementById('s-boosts').textContent = state.boostsCount;
+  const b = document.getElementById('queue-badge');
+  if (state.pendingCount > 0) { b.style.display = 'inline-flex'; b.textContent = state.pendingCount; }
+  else { b.style.display = 'none'; }
+}
+
+// ─── CREATE ───────────────────────────────
+async function generateAndQueue() {
+  const name = document.getElementById('pub-name').value.trim();
+  const price = document.getElementById('pub-price').value;
+  const tone = document.getElementById('pub-tone').value;
+  const facts = document.getElementById('pub-facts').value;
+  const extra = document.getElementById('pub-extra').value;
+  const city = document.getElementById('pub-city').value;
+  const cond = document.getElementById('pub-cond').value;
+
+  if (!name) { notify('⚠️ Укажи название товара'); return; }
+
+  setResLoading('create-status', 'AI генерирует заголовок и текст...');
+
+  const toneMap = { trust:'доверительный и честный', urgent:'срочная продажа', premium:'премиум статус', friendly:'дружеский живой' };
+  const condMap = { new:'новое', excellent:'отличное состояние', good:'хорошее состояние', used:'б/у' };
+
+  try {
+    const [titleRes, textRes] = await Promise.all([
+      callAI(null, `Создай 3 варианта заголовка для Авито. Товар: ${name}. Характеристики: ${facts}. Состояние: ${condMap[cond]}. Каждый до 50 символов. Формат: "1. заголовок (XX симв.)" — только список.`, 300),
+      callAI(null, `Напиши продающий текст объявления для Авито.
+Товар: ${name}. Цена: ${price ? price+'₽' : 'не указана'}. Состояние: ${condMap[cond]}. Город: ${city}. Характеристики: ${facts}. Доп. инфо: ${extra}. Тон: ${toneMap[tone]}.
+Длина 400-600 символов. Структура: крючок → факты → призыв. 2-3 эмодзи. Только текст объявления.`, 800)
+    ]);
+
+    showRes('create-status', '✅ Готово! Отправлено в очередь на проверку.');
+
+    addToQueue({
+      type: 'listing',
+      title: name,
+      titleText: titleRes,
+      content: textRes,
+      price: parseInt(price) || 0,
+      city, cond,
+    });
+
+    notify('📋 Объявление в очереди — проверь!');
+    showPanel('queue');
+  } catch(e) {
+    showRes('create-status', '❌ Ошибка: ' + e.message);
+  }
+}
+
+function clearCreate() {
+  ['pub-name','pub-price','pub-city','pub-facts','pub-extra'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('create-status').style.display = 'none';
+}
+
+// ─── LISTINGS ─────────────────────────────
+async function loadListings() {
+  const uid = localStorage.getItem('av_uid');
+  if (!state.connected || !uid) { notify('⚠️ Подключи API в настройках'); return; }
+  const wrap = document.getElementById('listings-wrap');
+  wrap.innerHTML = '<div style="display:flex;align-items:center;gap:10px;padding:20px;color:var(--muted);font-size:13px;"><div class="spinner"></div>Загружаем...</div>';
+  try {
+    const data = await avitoGet(`/core/v1/accounts/${uid}/items?per_page=50&status=active`);
+    state.listings = data.resources || [];
+    if (!state.listings.length) {
+      wrap.innerHTML = '<div class="empty-state"><div class="es-icon">📋</div><h3>Нет активных объявлений</h3><p>Создай первое объявление</p></div>';
+      return;
+    }
+    wrap.innerHTML = `<table style="width:100%;border-collapse:collapse;">
+      <thead><tr>
+        <th style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:8px 12px;text-align:left;border-bottom:1.5px solid var(--border);">Объявление</th>
+        <th style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:8px 12px;text-align:left;border-bottom:1.5px solid var(--border);">Цена</th>
+        <th style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:8px 12px;text-align:left;border-bottom:1.5px solid var(--border);">Действия</th>
+      </tr></thead>
+      <tbody>${state.listings.map(l => `
+        <tr>
+          <td style="padding:11px 12px;font-size:13px;border-bottom:1px solid var(--border);">
+            <strong>${l.title || '—'}</strong><br>
+            <span style="font-size:11px;color:var(--muted);">ID: ${l.id}</span>
+          </td>
+          <td style="padding:11px 12px;font-size:13px;border-bottom:1px solid var(--border);">${l.price ? l.price.toLocaleString('ru')+'₽' : '—'}</td>
+          <td style="padding:11px 12px;border-bottom:1px solid var(--border);">
+            <button class="btn btn-ghost btn-sm" onclick="boostListing('${l.id}','${(l.title||'').replace(/'/g,'')}')">🚀 Поднять</button>
+          </td>
+        </tr>`).join('')}
+      </tbody></table>`;
+    addLog('blue', 'Объявления загружены', `${state.listings.length} активных`);
+  } catch(e) {
+    wrap.innerHTML = `<div class="empty-state"><div class="es-icon">❌</div><h3>${e.message}</h3></div>`;
+  }
+}
+
+// ─── BOOST ────────────────────────────────
+async function boostListing(id, title) {
+  if (!state.connected) { notify('⚠️ API не подключён'); return; }
+  const uid = localStorage.getItem('av_uid');
+  try {
+    const item = state.listings.find(l => String(l.id) === String(id));
+    const desc = (item?.description || '') + (Math.random() > .5 ? ' ' : '');
+    await avitoPut(`/core/v1/accounts/${uid}/items/${id}`, { description: desc.trim() });
+    state.boostsCount++;
+    updateCounters();
+    notify(`🚀 Поднято: ${title}`);
+    addLog('green', 'Поднятие', title || id);
+  } catch(e) {
+    notify('❌ ' + e.message);
+  }
+}
+
+// ─── SCHEDULE ─────────────────────────────
+function schedToggle(input, time) {
+  if (input.checked) {
+    const [h, m] = time.split(':').map(Number);
+    const now = new Date();
+    let t = new Date(); t.setHours(h, m, 0, 0);
+    if (t <= now) t.setDate(t.getDate() + 1);
+    const ms = t - now;
+    state.schedTimers[time] = setTimeout(function fire() {
+      if (!state.connected) { state.schedTimers[time] = setTimeout(fire, 86400000); return; }
+      state.listings.forEach(l => boostListing(l.id, l.title));
+      if (!state.listings.length) { loadListings().then(() => state.listings.forEach(l => boostListing(l.id, l.title))); }
+      addLog('green', `Авто-поднятие ${time}`, 'По расписанию');
+      notify(`⏰ Авто-поднятие ${time} выполнено`);
+      state.schedTimers[time] = setTimeout(fire, 86400000);
+    }, ms);
+    addLog('blue', `Расписание ${time}`, 'Включено');
+  } else {
+    clearTimeout(state.schedTimers[time]);
+    delete state.schedTimers[time];
+    addLog('warn', `Расписание ${time}`, 'Выключено');
+  }
+}
+
+// ─── MESSAGES ─────────────────────────────
+function toggleMsgMonitor(input) {
+  const badge = document.getElementById('msg-monitor-status');
+  if (input.checked) {
+    badge.className = 'badge badge-green'; badge.textContent = 'Активно';
+    const interval = parseInt(document.getElementById('msg-interval').value);
+    state.msgInterval = setInterval(checkMessages, interval);
+    checkMessages();
+    addLog('blue', 'Мониторинг сообщений', 'Включён');
+    notify('💬 Слежу за новыми сообщениями');
+  } else {
+    badge.className = 'badge badge-gray'; badge.textContent = 'Выключено';
+    clearInterval(state.msgInterval);
+    addLog('warn', 'Мониторинг сообщений', 'Выключён');
+  }
+}
+
+async function checkMessages() {
+  if (!state.connected) return;
+  const uid = localStorage.getItem('av_uid');
+  if (!uid) return;
+  try {
+    const data = await avitoGet(`/messenger/v3/accounts/${uid}/chats?unread_only=true`);
+    const chats = data.chats || [];
+    for (const chat of chats) {
+      const lastMsg = chat.last_message;
+      if (lastMsg?.author?.id != uid && lastMsg?.content?.text) {
+        await prepareReply(chat.id, lastMsg.content.text);
+      }
+    }
+  } catch(e) {}
+}
+
+async function prepareReply(chatId, question) {
+  // Проверяем что этот чат не уже в очереди
+  if (state.queue.some(q => q.chatId === chatId && q.status === 'pending')) return;
+
+  const productInfo = document.getElementById('msg-product-info').value;
+  const replyText = await callAI(
+    `Ты продавец на Авито. Отвечай кратко, вежливо, по-русски. Информация о товаре: ${productInfo || 'не указана'}.`,
+    question, 300
+  );
+
+  addToQueue({
+    type: 'reply',
+    title: `Ответ покупателю`,
+    question,
+    content: replyText,
+    chatId,
+  });
+
+  const b = document.getElementById('msg-badge');
+  b.style.display = 'inline-flex';
+  b.textContent = (parseInt(b.textContent) || 0) + 1;
+  notify('💬 Новое сообщение — подготовлен ответ!');
+}
+
+async function simulateIncoming() {
+  const questions = [
+    'Здравствуйте! Цена ещё актуальна? Торг возможен?',
+    'Добрый день! Можно посмотреть сегодня вечером?',
+    'Отправляете по России? Какая доставка?',
+    'В каком состоянии? Есть дефекты?',
+  ];
+  const q = questions[Math.floor(Math.random() * questions.length)];
+  const productInfo = document.getElementById('msg-product-info').value;
+
+  notify('💬 Симулирую входящее сообщение...');
+  const replyText = await callAI(
+    `Ты продавец на Авито. Отвечай кратко, вежливо. Товар: ${productInfo || 'не указан'}.`,
+    q, 300
+  );
+
+  addToQueue({ type: 'reply', title: 'Тест — ответ покупателю', question: q, content: replyText, chatId: 'test_' + Date.now() });
+  showPanel('queue');
+  notify('✅ В очереди — проверь ответ!');
+}
+
+// ─── LOG ──────────────────────────────────
+function addLog(type, title, detail) {
+  const time = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
+  state.log.unshift({ type, title, detail, time });
+  renderLog();
+}
+
+function renderLog() {
+  const el = document.getElementById('full-log');
+  if (!state.log.length) return;
+  el.innerHTML = state.log.map(l => `
+    <div class="log-item">
+      <div class="log-time">${l.time}</div>
+      <div class="log-dot ${l.type}"></div>
+      <div><strong>${l.title}</strong> — <span style="color:var(--muted)">${l.detail}</span></div>
+    </div>`).join('');
+}
+
+function clearLog() { state.log = []; document.getElementById('full-log').innerHTML = '<div class="empty-state"><div class="es-icon">📜</div><h3>Лог очищен</h3></div>'; }
+
+// ─── HELPERS ──────────────────────────────
+function setResLoading(id, msg) {
+  const el = document.getElementById(id);
+  el.style.display = 'flex'; el.className = 'result-box loading';
+  el.innerHTML = `<div class="spinner"></div>${msg}`;
+}
+
+function showRes(id, text) {
+  const el = document.getElementById(id);
+  el.style.display = 'block'; el.className = 'result-box visible';
+  el.innerHTML = `<button class="copy-btn" onclick="copyEl('${id}')">📋 Копировать</button>${text}`;
+}
+
+function copyEl(id) {
+  const t = document.getElementById(id).innerText.replace(/^📋 Копировать\s*/,'').trim();
+  navigator.clipboard.writeText(t); notify('📋 Скопировано!');
+}
+
+function notify(msg) {
+  const n = document.getElementById('notif');
+  document.getElementById('notif-text').textContent = msg;
+  n.classList.add('show'); clearTimeout(n._t);
+  n._t = setTimeout(() => n.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>

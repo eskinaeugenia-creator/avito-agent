@@ -59,6 +59,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Москва</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-SPB1</Id>
@@ -118,6 +119,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Санкт-Петербург</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-SCH1</Id>
@@ -177,6 +179,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Сочи</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-KRD1</Id>
@@ -236,6 +239,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Краснодар</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-EKB1</Id>
@@ -295,6 +299,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Екатеринбург</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-NSK1</Id>
@@ -354,6 +359,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Новосибирск</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-KZN2</Id>
@@ -413,6 +419,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Казань</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-NNV2</Id>
@@ -472,6 +479,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Нижний Новгород</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-RST2</Id>
@@ -531,6 +539,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Ростов-на-Дону</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-KLG2</Id>
@@ -590,6 +599,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Калининград</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-VLD2</Id>
@@ -649,6 +659,7 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Владивосток</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
   <Ad>
     <Id>EBANDA-SUBNADO-PLUS-SAM2</Id>
@@ -708,5 +719,6 @@
     <VideoURL>https://youtu.be/rrmJm-AqVj0</VideoURL>
     <Address>Самара</Address>
     <Availability>в наличии</Availability>
+    <Quantity>2</Quantity>
   </Ad>
 </Ads>

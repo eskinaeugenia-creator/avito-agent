@@ -3759,6 +3759,7 @@ ebanda.club
     </Images>
     <ContactMethod>Звонки и сообщения</ContactMethod>
     <Address>Москва</Address>
+    <ServiceType>Другое</ServiceType>
   </Ad>
   <Ad>
     <Id>EBANDA-TRAIN-EFOIL-MSK1</Id>
@@ -3915,6 +3916,7 @@ ebanda.club
     </Images>
     <ContactMethod>Звонки и сообщения</ContactMethod>
     <Address>Москва</Address>
+    <ServiceType>Обучение, курсы</ServiceType>
   </Ad>
   <Ad>
     <Id>EBANDA-RENTAL-JETSURF-MSK1</Id>
@@ -4035,6 +4037,7 @@ ebanda.club
     </Images>
     <ContactMethod>Звонки и сообщения</ContactMethod>
     <Address>Москва</Address>
+    <ServiceType>Другое</ServiceType>
   </Ad>
   <Ad>
     <Id>EBANDA-TRAIN-JETSURF-MSK1</Id>
@@ -4187,5 +4190,6 @@ ebanda.club
     </Images>
     <ContactMethod>Звонки и сообщения</ContactMethod>
     <Address>Москва</Address>
+    <ServiceType>Обучение, курсы</ServiceType>
   </Ad>
 </Ads>

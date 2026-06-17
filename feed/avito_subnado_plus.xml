@@ -3749,17 +3749,11 @@ ebanda.club
     <Price>4000</Price>
     <Images>
       <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_1383.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_1382.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2023/06/i03_img_0939-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_8844-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_9579.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_6944-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2023/06/DSC03350-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/04/sertik-efoil.jpg" />
     </Images>
     <ContactMethod>Звонки и сообщения</ContactMethod>
     <Address>Москва</Address>
     <ServiceType>Другое</ServiceType>
+    <ServiceSubtype>Ещё услуги</ServiceSubtype>
   </Ad>
   <Ad>
     <Id>EBANDA-TRAIN-EFOIL-MSK1</Id>
@@ -3906,17 +3900,11 @@ ebanda.club
     <Price>5500</Price>
     <Images>
       <Image url="https://ebanda.club/wp-content/uploads/2023/06/i03_img_0939-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_1383.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_8844-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_1382.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_9579.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_6944-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2023/06/DSC03350-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/04/sertik-efoil.jpg" />
     </Images>
     <ContactMethod>Звонки и сообщения</ContactMethod>
     <Address>Москва</Address>
     <ServiceType>Обучение, курсы</ServiceType>
+    <ServiceSubtype>Творчество, хобби, спорт</ServiceSubtype>
   </Ad>
   <Ad>
     <Id>EBANDA-RENTAL-JETSURF-MSK1</Id>
@@ -4027,17 +4015,11 @@ ebanda.club
     <Price>4000</Price>
     <Images>
       <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_0337-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_9677-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_2099-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_1379-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_8364-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_9514-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2023/06/shop-category-header-3.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/04/sertik-jetsurf.jpg" />
     </Images>
     <ContactMethod>Звонки и сообщения</ContactMethod>
     <Address>Москва</Address>
     <ServiceType>Другое</ServiceType>
+    <ServiceSubtype>Ещё услуги</ServiceSubtype>
   </Ad>
   <Ad>
     <Id>EBANDA-TRAIN-JETSURF-MSK1</Id>
@@ -4180,16 +4162,10 @@ ebanda.club
     <Price>5000</Price>
     <Images>
       <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_1379-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_0337-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_9677-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_2099-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_8364-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/03/IMG_9514-1-scaled.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2023/06/shop-category-header-3.jpg" />
-      <Image url="https://ebanda.club/wp-content/uploads/2025/04/sertik-jetsurf.jpg" />
     </Images>
     <ContactMethod>Звонки и сообщения</ContactMethod>
     <Address>Москва</Address>
     <ServiceType>Обучение, курсы</ServiceType>
+    <ServiceSubtype>Творчество, хобби, спорт</ServiceSubtype>
   </Ad>
 </Ads>

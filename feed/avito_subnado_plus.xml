@@ -3905,6 +3905,11 @@ ebanda.club
     <Address>Москва</Address>
     <ServiceType>Обучение, курсы</ServiceType>
     <ServiceSubtype>Творчество, хобби, спорт</ServiceSubtype>
+  
+    <Speciality>Спорт, танцы</Speciality>
+    <Place>
+      <Option>У клиента</Option>
+    </Place>
   </Ad>
   <Ad>
     <Id>EBANDA-RENTAL-JETSURF-MSK1</Id>
@@ -4167,5 +4172,10 @@ ebanda.club
     <Address>Москва</Address>
     <ServiceType>Обучение, курсы</ServiceType>
     <ServiceSubtype>Творчество, хобби, спорт</ServiceSubtype>
+  
+    <Speciality>Спорт, танцы</Speciality>
+    <Place>
+      <Option>У клиента</Option>
+    </Place>
   </Ad>
 </Ads>
